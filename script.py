@@ -14,12 +14,9 @@ SEED = 42
 
 SIZES = [1000, 10000, 100000]
 
-
-# BUBBLE SORT
-
 def bubble_sort(arr):
     a = arr.copy()
-    swaps = 0
+    trocas = 0
     n = len(a)
 
     for i in range(n):
@@ -28,16 +25,13 @@ def bubble_sort(arr):
         for j in range(n - i - 1):
             if a[j] > a[j + 1]:
                 a[j], a[j + 1] = a[j + 1], a[j]
-                swaps += 1
+                trocas += 1
                 trocou = True
 
         if not trocou:
             break
 
-    return a, swaps
-
-
-# MERGE SORT
+    return a, trocas
 
 def merge_sort(arr):
 
@@ -88,15 +82,11 @@ def merge_sort(arr):
 
     return ordenado, moves[0]
 
-
-
-# QUICK SORT
-
 def quick_sort(arr):
 
     a = arr.copy()
 
-    swaps = [0]
+    trocas = [0]
 
     def particiona(inicio, fim):
 
@@ -109,10 +99,10 @@ def quick_sort(arr):
                 i += 1
 
                 a[i], a[j] = a[j], a[i]
-                swaps[0] += 1
+                trocas[0] += 1
 
         a[i + 1], a[fim] = a[fim], a[i + 1]
-        swaps[0] += 1
+        trocas[0] += 1
 
         return i + 1
 
@@ -127,10 +117,7 @@ def quick_sort(arr):
 
     ordenar(0, len(a) - 1)
 
-    return a, swaps[0]
-
-
-
+    return a, trocas[0]
 
 def run_with_timeout(funcao, vetor, timeout):
 
@@ -158,21 +145,11 @@ def run_with_timeout(funcao, vetor, timeout):
 
     return resultado["saida"], resultado["tempo"]
 
-
-# ==========================================================
-# ALGORITMOS
-# ==========================================================
-
 algoritmos = [
     ("Bubble Sort", bubble_sort),
     ("Merge Sort", merge_sort),
     ("Quick Sort", quick_sort)
 ]
-
-
-# ==========================================================
-# GERAÇÃO DOS VETORES
-# ==========================================================
 
 random.seed(SEED)
 
@@ -180,8 +157,6 @@ vetores = {
     tamanho: random.sample(range(tamanho * 10), tamanho)
     for tamanho in SIZES
 }
-
-
 
 resultados = {}
 
@@ -250,9 +225,6 @@ for nome, algoritmo in algoritmos:
         print(f"Tempo médio: {media:.6f} s")
         print(f"Desvio padrão: {desvio:.6f} s")
         print(f"Trocas/Movimentações: {int(media_ops):,}")
-
-
-
 
 plt.figure(figsize=(10, 6))
 
